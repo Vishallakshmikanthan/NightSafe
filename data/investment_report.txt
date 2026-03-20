@@ -1,0 +1,29 @@
+========================================================================
+NIGHTSAFE GOVERNMENT INVESTMENT RECOMMENDATION
+========================================================================
+Generated : 2026-03-20T18:20:37
+Data      : chennai_scored.csv
+Method    : Streets ranked by composite Investment Priority Score (0-100) combining danger frequency (40%), inverse avg safety (35%), and population exposure (25%).
+
+Top 10 Most Critical Streets for Investment
+------------------------------------------------------------------------
+Rank  Street                         Priority  Danger%  AvgSafe  Footfall
+------------------------------------------------------------------------
+1     Triplicane Big Street              80.3   100.0%     25.2       338
+2     ECR Besant Nagar                   67.8    60.0%     35.2       754
+3     Broadway                           54.6    40.0%     51.6       792
+4     Egmore High Road                   54.3    40.0%     45.1       619
+5     Rajaji Salai                       52.0    40.0%     49.3       564
+6     GST Road                           51.3    40.0%     42.9       396
+7     Tambaram Main Road                 47.7    20.0%     54.2       947
+8     Guindy Industrial Estate Rd        47.3    20.0%     47.8       748
+9     Thiruvanmiyur Bank Colony          46.0    20.0%     45.2       603
+10    Chromepet High Road                44.3    20.0%     61.0       871
+------------------------------------------------------------------------
+
+RECOMMENDATIONS:
+  * Triplicane Big Street (Priority 80.3) — Danger in 100% of night hours. Avg safety 25.2/100. 5 lighting failure(s). Serves ~338 pedestrians/night.
+  * ECR Besant Nagar (Priority 67.8) — Danger in 60% of night hours. Avg safety 35.2/100. 3 lighting failure(s). Serves ~754 pedestrians/night.
+  * Broadway (Priority 54.6) — Danger in 40% of night hours. Avg safety 51.6/100. 2 lighting failure(s). Serves ~792 pedestrians/night.
+
+========================================================================

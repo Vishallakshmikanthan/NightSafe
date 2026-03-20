@@ -58,3 +58,57 @@ class TransitionAlertResponse(BaseModel):
     score: float
     prev_hour: Optional[int] = None
     prev_score: Optional[float] = None
+
+
+class AlertResponse(BaseModel):
+    street_id: str
+    street_name: str
+    hour: int
+    safety_score: float
+    zone: str
+    message: str
+
+
+# ── Safe-route response models ─────────────────────────────────────
+
+class SafeRouteStep(BaseModel):
+    street_id: str
+    street_name: str
+    lat: float
+    lng: float
+    safety_score: float
+    zone: str
+
+
+class SafeRouteResponse(BaseModel):
+    start: str
+    end: str
+    hour: int
+    route: List[SafeRouteStep]
+    total_streets: int
+    avg_safety_score: float
+
+
+class StreetNameEntry(BaseModel):
+    street_id: str
+    street_name: str
+
+
+# ── Investment recommendation models ───────────────────────────────
+
+class InvestmentRecommendation(BaseModel):
+    rank: int
+    street_id: str
+    street_name: str
+    investment_priority: float
+    danger_freq_pct: float
+    avg_safety_score: float
+    min_safety_score: float
+    total_footfall: int
+    avg_crime_score: float
+    lighting_failures: int
+
+
+class InvestmentReport(BaseModel):
+    metadata: dict
+    recommendations: List[InvestmentRecommendation]

@@ -6,12 +6,14 @@ from app.models.schemas import (
     SafetyScoreResponse,
     DangerZoneResponse,
     TransitionAlertResponse,
+    AlertResponse,
 )
 from app.services.safety_service import (
     get_all_streets,
     get_safety_score,
     get_danger_zones,
     get_transition_alerts,
+    get_alerts,
 )
 
 router = APIRouter()
@@ -47,3 +49,9 @@ async def danger_zones(
 async def transition_alerts():
     """Return streets where safety dropped from SAFE/CAUTION into DANGER."""
     return get_transition_alerts()
+
+
+@router.get("/alerts", response_model=List[AlertResponse])
+async def alerts():
+    """Return danger alerts (score < 40) for the current hour."""
+    return get_alerts()

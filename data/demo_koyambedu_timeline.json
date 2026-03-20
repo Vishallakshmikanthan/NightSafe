@@ -1,0 +1,30 @@
+[
+  {
+    "time": "20:00",
+    "score": 75.6,
+    "zone": "SAFE",
+    "label": "8:00 PM \u2014 SAFE",
+    "trigger": "none"
+  },
+  {
+    "time": "21:30",
+    "score": 51.9,
+    "zone": "CAUTION",
+    "label": "9:30 PM \u2014 CAUTION",
+    "trigger": "footfall_drop"
+  },
+  {
+    "time": "22:10",
+    "score": 30.1,
+    "zone": "DANGER",
+    "label": "10:10 PM \u2014 DANGER",
+    "trigger": "lighting_failure"
+  },
+  {
+    "time": "22:15",
+    "score": 20.1,
+    "zone": "DANGER",
+    "label": "10:15 PM \u2014 CRITICAL",
+    "trigger": "liquor_surge"
+  }
+]

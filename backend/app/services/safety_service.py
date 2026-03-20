@@ -118,3 +118,18 @@ def get_transition_alerts() -> List[Dict[str, Any]]:
         }
         for t in transitions
     ]
+
+
+def get_alerts() -> List[Dict[str, Any]]:
+    """Return danger alerts (score < 40) for the current hour."""
+    from datetime import datetime
+
+    current_hour = datetime.now().hour
+    danger_streets = get_danger_zones(current_hour)
+    return [
+        {
+            **street,
+            "message": f"DANGER ALERT: {street['street_name']} \u2014 Score: {street['safety_score']:.1f}",
+        }
+        for street in danger_streets
+    ]

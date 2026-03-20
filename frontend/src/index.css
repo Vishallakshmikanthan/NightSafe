@@ -11,4 +11,56 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 0.5rem;
+  background: #0a0e1a;
+}
+
+/* Dark-themed Leaflet tooltips */
+.safety-tooltip {
+  background: #121829 !important;
+  border: 1px solid #263059 !important;
+  border-radius: 0.5rem !important;
+  color: #e5e7eb !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  padding: 8px 12px !important;
+}
+
+.safety-tooltip::before {
+  border-top-color: #263059 !important;
+}
+
+/* Danger toast slide-in animation */
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+/* Custom range slider for dark theme */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6366f1;
+  cursor: pointer;
+  border: 2px solid #1b2340;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6366f1;
+  cursor: pointer;
+  border: 2px solid #1b2340;
 }

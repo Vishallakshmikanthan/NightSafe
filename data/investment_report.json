@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "report_title": "NightSafe Government Investment Recommendation",
+    "generated_at": "2026-03-20T18:20:37",
+    "methodology": "Streets ranked by composite Investment Priority Score (0-100) combining danger frequency (40%), inverse avg safety (35%), and population exposure (25%).",
+    "data_source": "chennai_scored.csv",
+    "top_n": 10
+  },
+  "recommendations": [
+    {
+      "rank": 1,
+      "street_id": "CHN-026",
+      "street_name": "Triplicane Big Street",
+      "investment_priority": 80.3,
+      "danger_freq_pct": 100.0,
+      "avg_safety_score": 25.2,
+      "min_safety_score": 16.6,
+      "total_footfall": 338,
+      "avg_crime_score": 0.76,
+      "lighting_failures": 5
+    },
+    {
+      "rank": 2,
+      "street_id": "CHN-025",
+      "street_name": "ECR Besant Nagar",
+      "investment_priority": 67.8,
+      "danger_freq_pct": 60.0,
+      "avg_safety_score": 35.2,
+      "min_safety_score": 12.7,
+      "total_footfall": 754,
+      "avg_crime_score": 0.964,
+      "lighting_failures": 3
+    },
+    {
+      "rank": 3,
+      "street_id": "CHN-036",
+      "street_name": "Broadway",
+      "investment_priority": 54.6,
+      "danger_freq_pct": 40.0,
+      "avg_safety_score": 51.6,
+      "min_safety_score": 21.7,
+      "total_footfall": 792,
+      "avg_crime_score": 0.753,
+      "lighting_failures": 2
+    },
+    {
+      "rank": 4,
+      "street_id": "CHN-028",
+      "street_name": "Egmore High Road",
+      "investment_priority": 54.3,
+      "danger_freq_pct": 40.0,
+      "avg_safety_score": 45.1,
+      "min_safety_score": 16.6,
+      "total_footfall": 619,
+      "avg_crime_score": 0.541,
+      "lighting_failures": 2
+    },
+    {
+      "rank": 5,
+      "street_id": "CHN-038",
+      "street_name": "Rajaji Salai",
+      "investment_priority": 52.0,
+      "danger_freq_pct": 40.0,
+      "avg_safety_score": 49.3,
+      "min_safety_score": 18.0,
+      "total_footfall": 564,
+      "avg_crime_score": 0.56,
+      "lighting_failures": 2
+    },
+    {
+      "rank": 6,
+      "street_id": "CHN-016",
+      "street_name": "GST Road",
+      "investment_priority": 51.3,
+      "danger_freq_pct": 40.0,
+      "avg_safety_score": 42.9,
+      "min_safety_score": 14.1,
+      "total_footfall": 396,
+      "avg_crime_score": 0.833,
+      "lighting_failures": 1
+    },
+    {
+      "rank": 7,
+      "street_id": "CHN-018",
+      "street_name": "Tambaram Main Road",
+      "investment_priority": 47.7,
+      "danger_freq_pct": 20.0,
+      "avg_safety_score": 54.2,
+      "min_safety_score": 36.8,
+      "total_footfall": 947,
+      "avg_crime_score": 0.885,
+      "lighting_failures": 1
+    },
+    {
+      "rank": 8,
+      "street_id": "CHN-034",
+      "street_name": "Guindy Industrial Estate Rd",
+      "investment_priority": 47.3,
+      "danger_freq_pct": 20.0,
+      "avg_safety_score": 47.8,
+      "min_safety_score": 24.4,
+      "total_footfall": 748,
+      "avg_crime_score": 0.867,
+      "lighting_failures": 1
+    },
+    {
+      "rank": 9,
+      "street_id": "CHN-045",
+      "street_name": "Thiruvanmiyur Bank Colony",
+      "investment_priority": 46.0,
+      "danger_freq_pct": 20.0,
+      "avg_safety_score": 45.2,
+      "min_safety_score": 11.8,
+      "total_footfall": 603,
+      "avg_crime_score": 0.93,
+      "lighting_failures": 1
+    },
+    {
+      "rank": 10,
+      "street_id": "CHN-020",
+      "street_name": "Chromepet High Road",
+      "investment_priority": 44.3,
+      "danger_freq_pct": 20.0,
+      "avg_safety_score": 61.0,
+      "min_safety_score": 29.9,
+      "total_footfall": 871,
+      "avg_crime_score": 0.554,
+      "lighting_failures": 1
+    }
+  ]
+}

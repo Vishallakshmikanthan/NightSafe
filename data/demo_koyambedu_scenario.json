@@ -1,0 +1,231 @@
+{
+  "scenario": "Koyambedu Danger Transition \u2014 NightSafe Demo",
+  "street": {
+    "id": "CHN-KYB-DEMO",
+    "name": "Koyambedu High Road",
+    "lat": 13.0694,
+    "lng": 80.1948,
+    "area": "Koyambedu, Chennai",
+    "description": "Major commercial junction near CMBT bus terminus. High evening footfall from wholesale market workers and commuters. Multiple TASMAC outlets within 400 m."
+  },
+  "generated_at": "2026-03-20T18:24:36",
+  "scoring_model": "ml.safety_model.score_safety (weighted formula)",
+  "timeline": [
+    {
+      "time": "20:00",
+      "label": "8:00 PM \u2014 SAFE",
+      "street_id": "CHN-KYB-DEMO",
+      "street_name": "Koyambedu High Road",
+      "lat": 13.0694,
+      "lng": 80.1948,
+      "hour": 20,
+      "inputs": {
+        "footfall": 235,
+        "lighting_status": 0,
+        "liquor_distance": 390,
+        "crime_score": 0.4
+      },
+      "safety_score": 75.6,
+      "zone": "SAFE",
+      "narrative": "Evening bustle. Streets are well-lit, shops open, healthy pedestrian traffic. Nearest TASMAC outlet is 390 m away \u2014 no visible crowd.",
+      "explanation": {
+        "factors": {
+          "footfall": {
+            "value": 235,
+            "component_score": 76.6,
+            "weight": "35%",
+            "weighted": 26.8
+          },
+          "lighting": {
+            "status": "OK",
+            "component_score": 100.0,
+            "weight": "30%",
+            "weighted": 30.0
+          },
+          "liquor_proximity": {
+            "distance_m": 390,
+            "component_score": 48.8,
+            "weight": "20%",
+            "weighted": 9.8
+          },
+          "crime_baseline": {
+            "score": 0.4,
+            "component_score": 60.0,
+            "weight": "15%",
+            "weighted": 9.0
+          }
+        },
+        "delta_from_previous": 0,
+        "transition": "baseline (SAFE)",
+        "trigger": "none",
+        "trigger_explanation": "Baseline evening reading. No adverse triggers."
+      }
+    },
+    {
+      "time": "21:30",
+      "label": "9:30 PM \u2014 CAUTION",
+      "street_id": "CHN-KYB-DEMO",
+      "street_name": "Koyambedu High Road",
+      "lat": 13.0694,
+      "lng": 80.1948,
+      "hour": 21,
+      "inputs": {
+        "footfall": 48,
+        "lighting_status": 0,
+        "liquor_distance": 140,
+        "crime_score": 0.58
+      },
+      "safety_score": 51.9,
+      "zone": "CAUTION",
+      "narrative": "Footfall drops sharply as shops close. Lighting still functional, but TASMAC crowd activity pulls the effective liquor distance to 140 m. Crime baseline rises with fewer witnesses.",
+      "explanation": {
+        "factors": {
+          "footfall": {
+            "value": 48,
+            "component_score": 34.6,
+            "weight": "35%",
+            "weighted": 12.1
+          },
+          "lighting": {
+            "status": "OK",
+            "component_score": 100.0,
+            "weight": "30%",
+            "weighted": 30.0
+          },
+          "liquor_proximity": {
+            "distance_m": 140,
+            "component_score": 17.5,
+            "weight": "20%",
+            "weighted": 3.5
+          },
+          "crime_baseline": {
+            "score": 0.58,
+            "component_score": 42.0,
+            "weight": "15%",
+            "weighted": 6.3
+          }
+        },
+        "delta_from_previous": -23.7,
+        "transition": "SAFE \u2192 CAUTION",
+        "trigger": "footfall_drop",
+        "trigger_explanation": "FOOTFALL DROP: Pedestrian count fell from 235 to 48 (\u221280%) as shops shuttered. Fewer witnesses on the street raises vulnerability. Crime score ticked up from 0.40 \u2192 0.58."
+      }
+    },
+    {
+      "time": "22:10",
+      "label": "10:10 PM \u2014 DANGER",
+      "street_id": "CHN-KYB-DEMO",
+      "street_name": "Koyambedu High Road",
+      "lat": 13.0694,
+      "lng": 80.1948,
+      "hour": 22,
+      "inputs": {
+        "footfall": 100,
+        "lighting_status": 1,
+        "liquor_distance": 260,
+        "crime_score": 0.4
+      },
+      "safety_score": 30.1,
+      "zone": "DANGER",
+      "narrative": "Critical lighting failure at 10:07 PM \u2014 two consecutive streetlights go dark (maintenance off-shift). TASMAC bars closing; crowd spills onto the street. The 30% lighting weight crashes the score despite moderate footfall.",
+      "explanation": {
+        "factors": {
+          "footfall": {
+            "value": 100,
+            "component_score": 50.0,
+            "weight": "35%",
+            "weighted": 17.5
+          },
+          "lighting": {
+            "status": "FAILED",
+            "component_score": 0.0,
+            "weight": "30%",
+            "weighted": 0.0
+          },
+          "liquor_proximity": {
+            "distance_m": 260,
+            "component_score": 17.9,
+            "weight": "20%",
+            "weighted": 3.6
+          },
+          "crime_baseline": {
+            "score": 0.4,
+            "component_score": 60.0,
+            "weight": "15%",
+            "weighted": 9.0
+          }
+        },
+        "delta_from_previous": -21.8,
+        "transition": "CAUTION \u2192 DANGER",
+        "trigger": "lighting_failure",
+        "trigger_explanation": "LIGHTING FAILURE: Two consecutive streetlights failed at 10:07 PM (maintenance off-shift). The 30% lighting weight crashes from 100 \u2192 0, instantly dropping the composite score by ~30 points. Coincides with TASMAC closing-time penalty (hour 22 multiplier = 0.55)."
+      }
+    },
+    {
+      "time": "22:15",
+      "label": "10:15 PM \u2014 CRITICAL",
+      "street_id": "CHN-KYB-DEMO",
+      "street_name": "Koyambedu High Road",
+      "lat": 13.0694,
+      "lng": 80.1948,
+      "hour": 22,
+      "inputs": {
+        "footfall": 45,
+        "lighting_status": 1,
+        "liquor_distance": 120,
+        "crime_score": 0.55
+      },
+      "safety_score": 20.1,
+      "zone": "DANGER",
+      "narrative": "Post-TASMAC surge: intoxicated crowds at 120 m proximity. Footfall collapses to 45 as regular pedestrians avoid the area. Lighting still failed. Crime risk spikes. Score enters critical band (<25) \u2014 NightSafe triggers emergency alert.",
+      "explanation": {
+        "factors": {
+          "footfall": {
+            "value": 45,
+            "component_score": 33.5,
+            "weight": "35%",
+            "weighted": 11.7
+          },
+          "lighting": {
+            "status": "FAILED",
+            "component_score": 0.0,
+            "weight": "30%",
+            "weighted": 0.0
+          },
+          "liquor_proximity": {
+            "distance_m": 120,
+            "component_score": 8.2,
+            "weight": "20%",
+            "weighted": 1.6
+          },
+          "crime_baseline": {
+            "score": 0.55,
+            "component_score": 45.0,
+            "weight": "15%",
+            "weighted": 6.8
+          }
+        },
+        "delta_from_previous": -10.0,
+        "transition": "remains DANGER",
+        "trigger": "liquor_surge",
+        "trigger_explanation": "LIQUOR SURGE: Post-TASMAC closure crowd at 120 m proximity (was 260 m). Intoxicated pedestrians replace regular foot traffic. Combined with ongoing lighting failure and elevated crime, score enters critical band (<25). NightSafe emergency alert fires."
+      }
+    }
+  ],
+  "summary": {
+    "start_score": 75.6,
+    "end_score": 20.1,
+    "total_drop": 55.5,
+    "transitions": [
+      "baseline (SAFE)",
+      "SAFE \u2192 CAUTION",
+      "CAUTION \u2192 DANGER",
+      "remains DANGER"
+    ],
+    "primary_triggers": [
+      "footfall_drop",
+      "lighting_failure",
+      "liquor_surge"
+    ]
+  }
+}
