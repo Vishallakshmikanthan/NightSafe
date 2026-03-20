@@ -189,7 +189,7 @@ export default function SafetyMap() {
   const isSelected = (id) => selectedStreet?.street_id === id;
 
   return (
-    <div className="flex flex-col gap-3 h-full">
+    <div className="flex flex-col gap-3 flex-1 min-h-0">
       {/* ── Top info bar ─────────────────────────────────────── */}
       <TopInfoBar
         hour={hour}
@@ -315,7 +315,7 @@ export default function SafetyMap() {
         </div>
 
         {/* ── Map ────────────────────────────────────────────── */}
-        <div className="flex-1 rounded-xl overflow-hidden border border-night-600 relative shadow-2xl shadow-black/40">
+        <div className="flex-1 min-h-[300px] rounded-xl overflow-hidden border border-night-600 relative shadow-2xl shadow-black/40">
           {/* Loading overlay */}
           {loading && (
             <div className="absolute inset-0 z-[1000] flex items-center justify-center bg-night-900/80 backdrop-blur-sm">
