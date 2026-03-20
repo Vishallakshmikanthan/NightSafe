@@ -17,6 +17,7 @@ from ml.safety_model import (
     score_safety,
     classify,
     detect_transitions,
+    explain_safety,
 )
 
 # ---------------------------------------------------------------------------
@@ -64,6 +65,7 @@ def get_safety_score(street_id: str, hour: int) -> Optional[Dict[str, Any]]:
                 "hour": row["hour"],
                 "safety_score": row["safety_score"],
                 "zone": row["zone"],
+                "explanation": row.get("explanation", []),
             }
 
     # Street exists but not at this hour — re-score with closest-hour features
@@ -79,12 +81,20 @@ def get_safety_score(street_id: str, hour: int) -> Optional[Dict[str, Any]]:
         crime_score=closest["crime_score"],
         hour=hour,
     )
+    new_explanation = explain_safety(
+        footfall=closest["footfall"],
+        lighting_status=closest["lighting_status"],
+        liquor_distance=closest["liquor_distance"],
+        crime_score=closest["crime_score"],
+        hour=hour,
+    )
     return {
         "street_id": street_id,
         "street_name": closest["street_name"],
         "hour": hour,
         "safety_score": new_score,
         "zone": classify(new_score),
+        "explanation": new_explanation,
     }
 
 
@@ -97,6 +107,7 @@ def get_danger_zones(hour: int) -> List[Dict[str, Any]]:
             "hour": r["hour"],
             "safety_score": r["safety_score"],
             "zone": r["zone"],
+            "explanation": r.get("explanation", []),
         }
         for r in _load_scored_data()
         if r["hour"] == hour and r["safety_score"] < 40

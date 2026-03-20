@@ -62,3 +62,68 @@ export async function fetchStreetNames() {
   const { data } = await client.get("/routes/street-names");
   return data;
 }
+
+// ── Agent & Dashboard endpoints ────────────────────────────────────
+
+export async function fetchAnomalies(hour) {
+  const params = hour !== undefined ? { hour } : {};
+  const { data } = await client.get("/agents/anomalies", { params });
+  return data;
+}
+
+export async function fetchGeoClusters(hour = 22) {
+  const { data } = await client.get("/agents/geo-clusters", { params: { hour } });
+  return data;
+}
+
+export async function fetchPredictions(hour = 22) {
+  const { data } = await client.get("/agents/predict", { params: { hour } });
+  return data;
+}
+
+export async function fetchPoliceAlerts() {
+  const { data } = await client.get("/agents/police-alerts");
+  return data;
+}
+
+export async function fetchGccAlerts() {
+  const { data } = await client.get("/agents/gcc-alerts");
+  return data;
+}
+
+export async function fetchInvestmentReport(top = 10) {
+  const { data } = await client.get("/agents/investment-report", { params: { top } });
+  return data;
+}
+
+export async function submitFeedback(body) {
+  const { data } = await client.post("/agents/feedback", body);
+  return data;
+}
+
+export async function triggerLearning() {
+  const { data } = await client.post("/agents/learn");
+  return data;
+}
+
+export async function fetchLearningStatus() {
+  const { data } = await client.get("/agents/learning");
+  return data;
+}
+
+export async function startSimulation(interval = 30) {
+  const { data } = await client.post("/agents/simulation/start", null, {
+    params: { interval },
+  });
+  return data;
+}
+
+export async function stopSimulation() {
+  const { data } = await client.post("/agents/simulation/stop");
+  return data;
+}
+
+export async function fetchSimulationStatus() {
+  const { data } = await client.get("/agents/simulation/status");
+  return data;
+}

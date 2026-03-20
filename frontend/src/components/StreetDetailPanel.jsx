@@ -130,6 +130,39 @@ export default function StreetDetailPanel({ street, onClose }) {
           </div>
         ))}
       </div>
+
+      {/* AI Explanation */}
+      {street.explanation && street.explanation.length > 0 && (
+        <div className="mt-4">
+          <h4 className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-2">
+            Why this score?
+          </h4>
+          <div
+            className="rounded-lg p-3 space-y-1.5"
+            style={{
+              backgroundColor: `${color}08`,
+              border: `1px solid ${color}20`,
+            }}
+          >
+            <p className="text-xs font-semibold" style={{ color }}>
+              Safety Score {street.safety_score.toFixed(0)} ({zone})
+            </p>
+            <ul className="space-y-1">
+              {street.explanation.map((reason, i) => (
+                <li
+                  key={i}
+                  className="text-xs text-gray-300 flex items-start gap-1.5"
+                >
+                  <span className="text-[10px] mt-0.5" style={{ color }}>
+                    ●
+                  </span>
+                  {reason}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

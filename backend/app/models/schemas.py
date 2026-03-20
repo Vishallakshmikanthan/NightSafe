@@ -33,6 +33,7 @@ class StreetRecord(BaseModel):
     crime_score: float
     safety_score: float
     zone: str
+    explanation: List[str] = []
 
 
 class SafetyScoreResponse(BaseModel):
@@ -41,6 +42,7 @@ class SafetyScoreResponse(BaseModel):
     hour: int
     safety_score: float
     zone: str
+    explanation: List[str] = []
 
 
 class DangerZoneResponse(BaseModel):
@@ -49,6 +51,7 @@ class DangerZoneResponse(BaseModel):
     hour: int
     safety_score: float
     zone: str
+    explanation: List[str] = []
 
 
 class TransitionAlertResponse(BaseModel):
@@ -66,6 +69,7 @@ class AlertResponse(BaseModel):
     hour: int
     safety_score: float
     zone: str
+    explanation: List[str] = []
     message: str
 
 
@@ -112,3 +116,82 @@ class InvestmentRecommendation(BaseModel):
 class InvestmentReport(BaseModel):
     metadata: dict
     recommendations: List[InvestmentRecommendation]
+
+
+# ── Anomaly detection models ───────────────────────────────────────
+
+class AnomalyResponse(BaseModel):
+    street_id: str
+    street_name: str
+    hour: int
+    score: float
+    expected_score: float
+    deviation: float
+    drop_magnitude: float
+    severity: str
+
+
+# ── Police & GCC dashboard models ─────────────────────────────────
+
+class PoliceAlertResponse(BaseModel):
+    alert_id: str
+    timestamp: str
+    alert_type: str
+    severity: str
+    street_id: str
+    street_name: str
+    hour: int
+    safety_score: float
+    message: str
+    dispatched_to: str
+    acknowledged: bool
+
+
+# ── Geo-cluster models ─────────────────────────────────────────────
+
+class GeoClusterResponse(BaseModel):
+    grid: List[int]
+    center_lat: float
+    center_lng: float
+    street_count: int
+    street_ids: List[str]
+    avg_safety: Optional[float] = None
+
+
+# ── Continuous learning models ─────────────────────────────────────
+
+class FeedbackRequest(BaseModel):
+    street_id: str
+    hour: int
+    reported_score: float
+    actual_feeling: float
+    source: str = "user"
+
+
+class LearningStatusResponse(BaseModel):
+    weights: dict
+    epoch: int
+    pending_feedback: int
+
+
+# ── Simulation models ──────────────────────────────────────────────
+
+class SimulationStatusResponse(BaseModel):
+    running: bool
+    tick: int
+    interval_seconds: float
+    noise_pct: float
+    last_update: float
+    total_records: int
+
+
+# ── Risk prediction models ─────────────────────────────────────────
+
+class PredictionResponse(BaseModel):
+    street_id: str
+    street_name: str
+    predicted_hour: int
+    predicted_score: float
+    predicted_zone: str
+    trend: str
+    confidence: str

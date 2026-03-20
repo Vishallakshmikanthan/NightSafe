@@ -144,6 +144,58 @@ def score_safety(
 
 
 # ---------------------------------------------------------------------------
+# Explanation generator
+# ---------------------------------------------------------------------------
+
+
+def explain_safety(
+    footfall: int,
+    lighting_status: int,
+    liquor_distance: int,
+    crime_score: float,
+    hour: int,
+) -> List[str]:
+    """
+    Return a list of human-readable reasons explaining the safety score.
+    Each string describes one contributing factor.
+    """
+    reasons: List[str] = []
+
+    # Footfall
+    footfall_pct = (footfall / FOOTFALL_MAX) * 100
+    if footfall_pct < 20:
+        reasons.append(f"Footfall dropped by {100 - footfall_pct:.0f}% (only {footfall} people/hr)")
+    elif footfall_pct < 50:
+        reasons.append(f"Moderate footfall ({footfall} people/hr)")
+
+    # Lighting
+    if lighting_status == 1:
+        reasons.append("Streetlight failure detected")
+
+    # Liquor proximity
+    if liquor_distance < 150:
+        reasons.append(f"Liquor outlet within {liquor_distance}m")
+    elif liquor_distance < 300:
+        reasons.append(f"Liquor outlet nearby ({liquor_distance}m)")
+
+    # Liquor hour penalty
+    if hour in (22, 23, 0) and liquor_distance < 500:
+        reasons.append("Bar closing-time effect active")
+
+    # Crime
+    if crime_score > 0.7:
+        reasons.append(f"High crime history for this time ({crime_score:.0%})")
+    elif crime_score > 0.4:
+        reasons.append(f"Moderate crime history ({crime_score:.0%})")
+
+    # If nothing flagged, the street is relatively safe
+    if not reasons:
+        reasons.append("No major risk factors identified")
+
+    return reasons
+
+
+# ---------------------------------------------------------------------------
 # Classification & transition detection
 # ---------------------------------------------------------------------------
 
@@ -246,6 +298,7 @@ def score_chennai_csv(
         hour = int(r["hour"])
 
         s = score_safety(footfall, lighting, liquor, crime, hour)
+        explanation = explain_safety(footfall, lighting, liquor, crime, hour)
         scored.append({
             "street_id": r["street_id"],
             "street_name": r["street_name"],
@@ -256,6 +309,7 @@ def score_chennai_csv(
             "crime_score": crime,
             "safety_score": s,
             "zone": classify(s),
+            "explanation": explanation,
         })
 
     return scored

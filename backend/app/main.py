@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
-from app.api import health, safety, routes
+from app.api import health, safety, routes, agents
 
 app = FastAPI(
     title="NightSafe API",
@@ -26,3 +26,4 @@ async def root_health():
 app.include_router(health.router, prefix="/api", tags=["health"])
 app.include_router(safety.router, prefix="/api", tags=["safety"])
 app.include_router(routes.router, prefix="/api/routes", tags=["routes"])
+app.include_router(agents.router, prefix="/api/agents", tags=["agents"])

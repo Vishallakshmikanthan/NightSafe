@@ -196,7 +196,7 @@ All scores are computed by the real `score_safety()` model — not hardcoded.
 ### 1. Clone & prepare
 
 ```bash
-git clone https://github.com/your-username/NightSafe.git
+git clone https://github.com/Vishallakshmikanthan/NightSafe.git
 cd NightSafe
 ```
 
