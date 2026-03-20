@@ -18,6 +18,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Root-level health check for deployment platforms (Render, Railway)
+@app.get("/health")
+async def root_health():
+    return {"status": "ok", "service": "NightSafe API"}
+
 app.include_router(health.router, prefix="/api", tags=["health"])
-app.include_router(safety.router, tags=["safety"])
+app.include_router(safety.router, prefix="/api", tags=["safety"])
 app.include_router(routes.router, prefix="/api/routes", tags=["routes"])
