@@ -1,206 +1,201 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/NightSafe-AI%20Powered-blueviolet?style=for-the-badge" alt="NightSafe" />
-</p>
+# NightSafe
 
-<h1 align="center">🌙 NightSafe</h1>
+NightSafe is an AI-driven urban safety platform for safer movement through Chennai after dark. It combines live safety scoring, explainable routing, predictive alerts, personal safety tools, and a city-scale multi-agent intelligence layer into one system.
 
-<p align="center">
-  <b>AI-powered safe route navigation for nighttime travel in Chennai</b>
-</p>
+The project is built as a full-stack application:
 
-<p align="center">
-  <img src="https://img.shields.io/badge/python-3.10+-blue?logo=python&logoColor=white" alt="Python" />
-  <img src="https://img.shields.io/badge/node-18+-green?logo=node.js&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/FastAPI-0.111+-009688?logo=fastapi&logoColor=white" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black" alt="React" />
-  <img src="https://img.shields.io/badge/scikit--learn-ML-F7931E?logo=scikit-learn&logoColor=white" alt="scikit-learn" />
-  <img src="https://img.shields.io/badge/Leaflet-Maps-199900?logo=leaflet&logoColor=white" alt="Leaflet" />
-  <img src="https://img.shields.io/badge/license-MIT-green" alt="License" />
-  <img src="https://img.shields.io/badge/SDG-11%20%7C%20Sustainable%20Cities-E5243B" alt="SDG 11" />
-</p>
+- Frontend: React, Vite, Tailwind, Framer Motion, Deck.gl, Leaflet
+- Backend: FastAPI, Pydantic, service-oriented APIs
+- ML and analytics: Pandas, NumPy, scikit-learn
+- Data: Chennai street, crime, lighting, routing, and simulation datasets
 
-<p align="center">
-  <i>Every 6 minutes, a crime is reported in Indian cities after dark.<br/>
-  NightSafe ensures no one walks into danger unaware.</i>
-</p>
+## Why NightSafe Exists
 
----
+Most safety apps are reactive. They show where incidents have already happened.
 
-## 📌 Problem Statement
+NightSafe is designed to answer higher-value questions:
 
-> **SDG 11 — Sustainable Cities and Communities**
->
-> *Make cities inclusive, safe, resilient and sustainable.*
+- Which streets are safe right now?
+- Which route is safest, not just fastest?
+- Why is a route becoming dangerous?
+- What changes as the hour moves from evening into late night?
+- Which parts of the city need infrastructure intervention next?
 
-India's urban streets become fundamentally different environments after sunset. The convergence of **poor lighting infrastructure**, **liquor outlet proximity**, and **plummeting footfall** creates invisible danger corridors that static crime maps fail to capture.
+That turns NightSafe from a map into an intelligence system.
 
-Traditional safety apps show **where** crime happened. NightSafe predicts **when** and **why** a safe street becomes dangerous — in real time.
+## Core Capabilities
 
-**Key gaps we address:**
-- 🔦 **68%** of Chennai streetlights have unreported failures after 10 PM
-- 🍺 **TASMAC closures** at 10 PM create predictable danger surges that no app tracks
-- 👥 **Footfall collapse** after 9:30 PM removes the natural safety of crowds
-- 📊 Existing tools use **static crime heatmaps** — they can't predict transitions
+### Real-time safety map
 
----
+- City-wide safety visualization for Chennai
+- Danger zones and safer corridors by hour
+- Live alerts and route overlays
+- Cinematic, high-clarity map interface built for quick reading under pressure
 
-## 💡 The Core Innovation: Danger Transition Detection
+### Safe route planning
 
-NightSafe doesn't just score streets — it **detects the exact moment a safe street becomes dangerous** and explains *why*.
+- Route search with safety-aware alternatives
+- Safest, balanced, and fastest route variants
+- Route-level explainability with segment-by-segment reasons
+- Dynamic route insights such as danger segment counts and safer alternatives
 
-### The Weighted Safety Formula
+### Predictive intelligence
 
-```
-Safety Score (0-100) = Σ (weight × component)
-```
+- Predictive insights for selected streets and routes
+- Safety trend view across the night
+- Incident replay and time-travel timeline to inspect how city risk changes by hour
+- Rule-based forecasting that surfaces likely unsafe windows before users enter them
 
-| Factor | Weight | Signal |
-|--------|--------|--------|
-| **Footfall** | 35% | Lower crowd → more danger (√ curve) |
-| **Lighting** | 30% | Failed streetlight → instant hazard spike |
-| **Liquor proximity** | 20% | TASMAC closing at 10 PM → crowd surge penalty |
-| **Crime baseline** | 15% | Historical crime intensity (0-1) |
+### Personal safety system
 
-### Zone Classification
+- SOS trigger with visible and silent activation modes
+- Safety timer with automatic escalation
+- Fake call mode for social escape scenarios
+- Geofencing and safe zone monitoring
+- Trip sharing and live trip status
+- Crash detection simulation and escalation flow
+- Local-first emergency profile and offline alert queueing
 
-| Score | Zone | Action |
-|-------|------|--------|
-| > 70 | 🟢 **SAFE** | Normal routing |
-| 40–70 | 🟡 **CAUTION** | Alert + suggest alternatives |
-| < 40 | 🔴 **DANGER** | Reroute + emergency notification |
+### Multi-agent AI orchestrator
 
-**What makes this unique:** The model captures *temporal degradation patterns* — a street scoring 75 at 8 PM can score 20 by 10:15 PM. NightSafe detects these transitions in real time and fires alerts *before* users enter the danger zone.
+The latest flagship feature adds a city-scale orchestration engine that simulates multiple specialized agents working together:
 
----
+- Risk Agent
+- Crowd Agent
+- Alert Agent
+- Route Agent
+- Investment Agent
 
-## 🧠 System Architecture: 5-Agent Pipeline
+These agents analyze current conditions and produce:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    NightSafe Platform                        │
-│                                                             │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────────┐  │
-│  │ 🗺️ Data   │  │ 🧮 Safety │  │ 🔀 Route  │  │ 📊 Invest  │  │
-│  │ Simulator│  │ Scoring  │  │ Planner  │  │ Advisor    │  │
-│  │ Agent    │  │ Agent    │  │ Agent    │  │ Agent      │  │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └─────┬──────┘  │
-│       │              │              │               │        │
-│       └──────────────▼──────────────▼───────────────┘        │
-│                      │                                       │
-│              ┌───────▼────────┐                               │
-│              │ 🎯 Orchestrator │                               │
-│              │  (FastAPI Hub) │                               │
-│              └───────┬────────┘                               │
-│                      │                                       │
-│              ┌───────▼────────┐                               │
-│              │ 🖥️  Frontend    │                               │
-│              │ React + Leaflet│                               │
-│              └────────────────┘                               │
-└─────────────────────────────────────────────────────────────┘
-```
+- city risk summaries
+- footfall and density interpretations
+- predictive warnings
+- rerouting guidance
+- infrastructure and investment recommendations
 
-| Agent | Module | Role |
-|-------|--------|------|
-| **Data Simulator** | `data/simulate_chennai.py` | Generates realistic hourly data for 55 Chennai streets (8 PM–midnight) with deterministic per-street profiles |
-| **Safety Scoring** | `ml/safety_model.py` | Weighted formula scoring + zone classification + transition detection |
-| **Route Planner** | `backend/services/routing_service.py` | Dijkstra-based safest-path routing between any two streets |
-| **Investment Advisor** | `ml/investment_model.py` | Identifies top unsafe streets for government investment (JSON + PDF reports) |
-| **Alert Monitor** | `backend/services/safety_service.py` | Real-time danger zone detection, transition alerts, and push notifications |
+This system is exposed in the frontend through the AI agent dashboard and orchestrated client-side without changing backend APIs.
 
----
+## Architecture Snapshot
 
-## 🛠️ Tech Stack (100% Free & Open Source)
-
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Frontend** | React 18, Vite, Tailwind CSS | Fast SPA with dark night theme |
-| **Maps** | Leaflet + react-leaflet | Interactive safety overlay map |
-| **Backend** | FastAPI, Uvicorn, Pydantic | High-performance async REST API |
-| **ML Engine** | scikit-learn, NumPy, Pandas | Safety scoring + Random Forest model |
-| **Reports** | ReportLab | PDF investment summaries |
-| **Data** | CSV + simulated Chennai dataset | 275 rows, 55 streets, 5 time slots |
-
-**Zero paid APIs. Zero cloud dependencies. Runs entirely offline.**
-
----
-
-## 🎬 Demo: Koyambedu Danger Transition
-
-> *A real-time walkthrough of how NightSafe detects danger on Koyambedu High Road*
-
-**Location:** Koyambedu, Chennai — major commercial junction near CMBT bus terminus. Multiple TASMAC outlets within 400 m.
-
-### Timeline
-
-```
-Score
-  80 ┤
-     │  ● 75.6 (SAFE)
-  70 ┤─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ SAFE threshold
-     │         ╲
-  60 ┤          ╲
-     │           ● 51.9 (CAUTION)
-  50 ┤            │
-     │            │  footfall drops 80%
-  40 ┤─ ─ ─ ─ ─ ─│─ ─ ─ ─ ─ ─ ─ ─ ─ DANGER threshold
-     │            │
-  30 ┤            ╲  ● 30.1 (DANGER)
-     │             ╲ │ lights fail + TASMAC closes
-  20 ┤              ╲● 20.1 (CRITICAL)
-     │                  liquor surge + footfall collapse
-  10 ┤
-     └──┬─────────┬──────┬──┬─────────
-      8:00PM   9:30PM 10:10 10:15PM
+```text
+NightSafe
+├── frontend
+│   ├── map and overlays
+│   ├── route planning and trip safety UX
+│   ├── explainability and timeline views
+│   ├── AI agent dashboard
+│   └── personal safety features
+├── backend
+│   ├── health, safety, routes, alerts APIs
+│   ├── agent-related endpoints
+│   ├── routing and safety services
+│   └── schema and config layers
+├── ml
+│   ├── safety scoring
+│   ├── investment analysis
+│   ├── training and prediction scripts
+│   └── model artifacts
+└── data
+    ├── Chennai scored datasets
+    ├── route segments
+    ├── demo scenarios
+    └── simulation inputs
 ```
 
-| Time | Score | Zone | Trigger Event |
-|------|-------|------|---------------|
-| **8:00 PM** | 75.6 | 🟢 SAFE | Baseline — shops open, 235 pedestrians, lights OK, TASMAC 390 m away |
-| **9:30 PM** | 51.9 | 🟡 CAUTION | **Footfall drop** — 235 → 48 (−80%) as shops close. Crime ticks up 0.40 → 0.58 |
-| **10:10 PM** | 30.1 | 🔴 DANGER | **Lighting failure** — 2 streetlights go dark. TASMAC closing penalty (×0.55 at hour 22) |
-| **10:15 PM** | 20.1 | 🔴 CRITICAL | **Liquor surge** — post-TASMAC crowd at 120 m. Regular pedestrians flee. Emergency alert fires |
+## Notable Frontend Features
 
-**Total degradation: 75.6 → 20.1 (−55.5 points in 2 hours 15 minutes)**
+- Deck.gl map rendering and safety overlays
+- Route planner with explainability panel
+- Predictive insights panel
+- Incident timeline replay
+- AI companion and live intelligence components
+- Safety hub for SOS, timer, geofence, fake call, and crash detection
+- Agent dashboard with tabs for risk, crowd, alerts, routes, and investment
 
-All scores are computed by the real `score_safety()` model — not hardcoded.
+## Multi-Agent Engine
 
----
+The orchestration engine lives in:
 
-## 📸 Screenshots
+- frontend/src/agents/agentEngine.js
 
-<!-- Replace these placeholders with actual screenshots -->
+It runs five specialized agents and returns structured intelligence for the UI:
 
-| Safety Map Overview | Danger Transition Alert |
-|:---:|:---:|
-| ![Safety Map](docs/screenshots/safety-map.png) | ![Danger Alert](docs/screenshots/danger-alert.png) |
+```js
+{
+  risk,
+  crowd,
+  alert,
+  route,
+  investment,
+  timestamp,
+}
+```
 
-| Route Search | Investment Report |
-|:---:|:---:|
-| ![Route Search](docs/screenshots/route-search.png) | ![Investment Report](docs/screenshots/investment-report.png) |
+Design goals of the agent engine:
 
-> *Add screenshots to `docs/screenshots/` after running the application.*
+- no backend API changes
+- safe fallback behavior on partial failures
+- Promise.allSettled for graceful degradation
+- lightweight, rule-based orchestration to avoid browser overload
+- debounced refresh and interval cleanup in UI consumers
 
----
+## Project Structure
 
-## 🚀 Setup Instructions
+```text
+NightSafe/
+├── backend/
+│   ├── app/
+│   │   ├── agents/
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── models/
+│   │   └── services/
+│   ├── requirements.txt
+│   └── test_smoke.py
+├── data/
+│   ├── chennai_scored.csv
+│   ├── chennai_street_data.csv
+│   ├── crime_data.csv
+│   ├── lighting_data.csv
+│   ├── route_segments.csv
+│   └── demo and report artifacts
+├── docs/
+├── frontend/
+│   ├── src/
+│   │   ├── agents/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   └── utils/
+│   └── package.json
+├── ml/
+│   ├── investment_model.py
+│   ├── safety_model.py
+│   ├── predict.py
+│   ├── train.py
+│   └── requirements.txt
+├── render.yaml
+└── README.md
+```
+
+## Local Setup
 
 ### Prerequisites
 
-| Tool | Version | Check |
-|------|---------|-------|
-| Python | ≥ 3.10 | `python --version` |
-| Node.js | ≥ 18 | `node --version` |
-| pip | latest | `pip --version` |
-| Git | latest | `git --version` |
+- Python 3.10+
+- Node.js 18+
+- npm
+- Git
 
-### 1. Clone & prepare
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Vishallakshmikanthan/NightSafe.git
 cd NightSafe
 ```
 
-### 2. Backend (FastAPI)
+### 2. Start the backend
 
 ```bash
 cd backend
@@ -208,16 +203,22 @@ python -m venv venv
 
 # Windows
 venv\Scripts\activate
-# macOS/Linux
+
+# macOS / Linux
 source venv/bin/activate
 
 pip install -r requirements.txt
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload --port 8001
 ```
 
-Backend runs at `http://localhost:8000` · API docs at `http://localhost:8000/docs`
+Local backend runs at:
 
-### 3. Frontend (React)
+- API: http://localhost:8001
+- OpenAPI docs: http://localhost:8001/docs
+
+Note: the frontend is currently configured to use port 8001 for local backend access.
+
+### 3. Start the frontend
 
 ```bash
 cd frontend
@@ -225,133 +226,100 @@ npm install
 npm run dev
 ```
 
-Frontend runs at `http://localhost:5173`
+Default frontend URL:
 
-### 4. ML Model (optional — train from scratch)
+- http://localhost:5173
+
+If that port is occupied, Vite may move to the next available port such as 5174.
+
+### 4. Optional ML workflows
 
 ```bash
 pip install -r ml/requirements.txt
-python -m ml.train            # Train safety model
-python -m ml.predict           # Run predictions
-python -m ml.safety_model      # Score all streets
-```
-
-### 5. Generate reports
-
-```bash
-# Investment recommendations (JSON + Text + PDF)
+python -m ml.train
+python -m ml.predict
+python -m ml.safety_model
 python -m ml.investment_model
-
-# Koyambedu demo scenario
-python data/demo_koyambedu.py
 ```
 
-### 6. Run smoke tests
+### 5. Smoke test
 
 ```bash
 cd backend
 python test_smoke.py
 ```
 
----
+## API Overview
 
-## 📡 API Endpoints
+Representative endpoints already used by the frontend:
 
-### Safety
+### Safety and alerts
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/streets` | All streets with safety scores |
-| `GET` | `/safety-score?street_id=CHN-001&hour=22` | Score for a specific street/hour |
-| `GET` | `/danger-zones?hour=22` | All DANGER-zone streets at given hour |
-| `GET` | `/transition-alerts` | Streets transitioning into DANGER |
-| `GET` | `/alerts` | Real-time danger alerts |
+- GET /api/streets
+- GET /api/safety-score
+- GET /api/danger-zones
+- GET /api/transition-alerts
+- GET /api/alerts
 
-### Routes
+### Routing
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/routes/safe-route?start=CHN-001&end=CHN-010&hour=22` | Safest walking route (Dijkstra) |
-| `GET` | `/api/routes/street-names` | All street names for autocomplete |
-| `GET` | `/api/routes/investment?top=10` | Top-N streets for government investment |
+- GET /api/routes/safe-route
+- GET /api/routes/street-names
 
-### System
+### Agent and analytics endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/health` | Health check |
+- GET /api/agents/anomalies
+- GET /api/agents/geo-clusters
+- GET /api/agents/predict
+- GET /api/agents/police-alerts
+- GET /api/agents/gcc-alerts
+- GET /api/agents/investment-report
+- POST /api/agents/feedback
+- POST /api/agents/learn
+- GET /api/agents/learning
+- POST /api/agents/simulation/start
+- POST /api/agents/simulation/stop
+- GET /api/agents/simulation/status
 
----
+## Deployment
 
-## 📁 Project Structure
+Render deployment config is included in render.yaml.
 
-```
-NightSafe/
-├── frontend/                  # React + Leaflet SPA
-│   ├── src/
-│   │   ├── components/        # MapView, SafetyMap, RouteSearch, DangerToast
-│   │   ├── pages/             # HomePage, AboutPage
-│   │   └── services/api.js    # Axios API client
-│   └── package.json
-│
-├── backend/                   # FastAPI REST API
-│   ├── app/
-│   │   ├── api/               # health, safety, routes endpoints
-│   │   ├── core/config.py     # Pydantic settings
-│   │   ├── models/schemas.py  # Request/response models
-│   │   └── services/          # routing_service, safety_service
-│   └── requirements.txt
-│
-├── ml/                        # Machine Learning engine
-│   ├── safety_model.py        # Weighted safety scoring formula
-│   ├── investment_model.py    # Government investment recommendations
-│   ├── train.py               # Random Forest training pipeline
-│   └── predict.py             # Model inference
-│
-├── data/                      # Datasets & generators
-│   ├── chennai_scored.csv     # 275 rows, 55 streets, scored
-│   ├── simulate_chennai.py    # Deterministic data simulator
-│   └── demo_koyambedu.py     # PPT demo scenario generator
-│
-└── docs/                      # Documentation
-    ├── architecture.md
-    └── development.md
-```
+Current Render setup:
 
----
+- Python web service
+- build installs backend and ML dependencies
+- start command launches FastAPI from backend/app.main
+- health check path: /health
 
-## 🔮 Future Scope
+## Engineering Notes
 
-| Phase | Feature | Impact |
-|-------|---------|--------|
-| **v2** | Real-time sensor integration (IoT streetlight monitors) | Live lighting failure detection |
-| **v2** | Crowdsourced incident reporting | Community-driven safety updates |
-| **v3** | Multi-city expansion (Bangalore, Hyderabad, Mumbai) | Pan-India coverage |
-| **v3** | Women's safety mode with SOS integration | Gender-specific route optimization |
-| **v4** | Municipal dashboard for government officials | Data-driven policy making |
-| **v4** | Predictive pre-crime alerting (time-series forecasting) | Anticipate danger before it manifests |
-| **v5** | Voice-guided navigation with real-time rerouting | Hands-free safe walking experience |
-| **v5** | Integration with ride-hailing APIs (Ola/Uber) | Seamless fallback to cabs in danger zones |
+This project intentionally emphasizes robust UI behavior and safe degradation:
 
----
+- null-safe rendering across route and alert surfaces
+- try/catch around orchestrated agent runs
+- interval and listener cleanup in interactive components
+- local-first fallbacks for offline and safety features
+- minimal browser load with debounced orchestration updates
 
-## 🤝 Contributing
+## Roadmap
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit with conventional messages (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+- real sensor integration for lighting and crowd density
+- stronger predictive modeling for hourly deterioration
+- production-grade trip monitoring and contact delivery
+- municipal operations dashboard for public agencies
+- broader multi-city rollout beyond Chennai
 
----
+## Screenshots and Demo Assets
 
-## 📄 License
+The repository already includes demo datasets and scenario files under data/. You can add product screenshots under docs/ and link them here once final captures are ready.
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+## License
 
----
+MIT
 
-<p align="center">
-  <b>Built with ❤️ for safer cities</b><br/>
-  <i>NightSafe — Because everyone deserves to walk home safe.</i>
-</p>
+## Author
+
+Vishallakshmikanthan
+
+If you are viewing this on GitHub, this README reflects the current NightSafe platform including the new multi-agent AI orchestration layer.

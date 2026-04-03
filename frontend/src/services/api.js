@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api";
+// Hardcoded to 8001 for NightSafe to avoid port 8000 conflicts
+const API_BASE = "http://localhost:8001/api";
 
 const client = axios.create({
   baseURL: API_BASE,
@@ -30,14 +31,16 @@ export async function fetchStreets() {
 }
 
 export async function fetchSafetyScore(streetId, hour) {
+  const h = Math.floor(hour);
   const { data } = await client.get("/safety-score", {
-    params: { street_id: streetId, hour },
+    params: { street_id: streetId, hour: h },
   });
   return data;
 }
 
 export async function fetchDangerZones(hour) {
-  const { data } = await client.get("/danger-zones", { params: { hour } });
+  const h = Math.floor(hour);
+  const { data } = await client.get("/danger-zones", { params: { hour: h } });
   return data;
 }
 
@@ -52,8 +55,9 @@ export async function fetchAlerts() {
 }
 
 export async function fetchSafeRoute(start, end, hour) {
+  const h = Math.floor(hour);
   const { data } = await client.get("/routes/safe-route", {
-    params: { start, end, hour },
+    params: { start, end, hour: h },
   });
   return data;
 }

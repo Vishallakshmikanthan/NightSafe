@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchStreetNames } from "../services/api.js";
+import { Button } from "./ui/button";
 
 export default function RouteSearch({ onSearch, hour }) {
   const [streets, setStreets] = useState([]);
@@ -53,13 +54,10 @@ export default function RouteSearch({ onSearch, hour }) {
         ))}
       </select>
 
-      <button
+      <Button
         type="submit"
         disabled={!start || !end || start === end || loading}
-        className="w-full px-4 py-2.5 bg-indigo-500 text-white text-sm font-semibold rounded-lg
-                   hover:bg-indigo-400 active:bg-indigo-600 transition-all duration-200
-                   disabled:opacity-30 disabled:cursor-not-allowed
-                   shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40"
+        className="w-full shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40"
       >
         {loading ? (
           <span className="flex items-center justify-center gap-2">
@@ -69,7 +67,7 @@ export default function RouteSearch({ onSearch, hour }) {
         ) : (
           "Find Safest Route"
         )}
-      </button>
+      </Button>
     </form>
   );
 }

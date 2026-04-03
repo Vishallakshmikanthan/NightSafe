@@ -65,6 +65,11 @@ STREET_COORDS: Dict[str, Tuple[float, float]] = {
     "CHN-048": (13.0680, 80.2040),
     "CHN-049": (13.0160, 80.2470),
     "CHN-050": (13.1205, 80.2210),
+    "CHN-051": (13.0840, 80.1920),  # Mogappair Main Road
+    "CHN-052": (13.1100, 80.1450),  # Ambattur OT Road
+    "CHN-053": (13.1150, 80.1100),  # Avadi Main Road
+    "CHN-054": (13.1320, 80.2080),  # Kolathur High Road
+    "CHN-055": (13.1180, 80.2850),  # Tondiarpet High Road
 }
 
 # Max distance (in km) to consider two streets adjacent / walkable

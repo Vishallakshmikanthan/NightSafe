@@ -3,6 +3,7 @@ import {
   MapContainer,
   TileLayer,
   CircleMarker,
+  Circle,
   Tooltip,
   Polyline,
   useMap,
@@ -12,7 +13,14 @@ import RouteSearch from "./RouteSearch.jsx";
 import LegendPanel from "./LegendPanel.jsx";
 import StreetDetailPanel from "./StreetDetailPanel.jsx";
 import TopInfoBar from "./TopInfoBar.jsx";
-import { fetchStreets as apiFetchStreets, fetchSafeRoute } from "../services/api.js";
+import AnomalyPanel from "./AnomalyPanel.jsx";
+import PredictionPanel from "./PredictionPanel.jsx";
+import SimulationControls from "./SimulationControls.jsx";
+import FeedbackWidget from "./FeedbackWidget.jsx";
+import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
+import { fetchStreets as apiFetchStreets, fetchSafeRoute, fetchGeoClusters } from "../services/api.js";
 
 // ── Chennai centre & zoom ───────────────────────────────────────
 const CHENNAI_CENTER = [13.0827, 80.2707];
@@ -114,6 +122,15 @@ export default function SafetyMap() {
   const [route, setRoute] = useState(null);
   const [routeError, setRouteError] = useState(null);
   const [selectedStreet, setSelectedStreet] = useState(null);
+  const [geoClusters, setGeoClusters] = useState([]);
+  const [showClusters, setShowClusters] = useState(true);
+
+  // Fetch geo-clusters
+  useEffect(() => {
+    fetchGeoClusters(hour)
+      .then((data) => setGeoClusters(Array.isArray(data) ? data : []))
+      .catch(() => setGeoClusters([]));
+  }, [hour]);
 
   // Fetch street data via the axios service
   const loadStreets = useCallback(async () => {
@@ -202,15 +219,18 @@ export default function SafetyMap() {
         {/* ── Sidebar ────────────────────────────────────────── */}
         <div className="w-80 shrink-0 flex flex-col gap-3 overflow-y-auto">
           {/* Time slider */}
-          <div className="glass-card rounded-xl p-4">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest">
-                Time of Night
-              </h3>
-              <span className="text-lg font-black text-white tabular-nums">
-                {hourLabel(hour)}
-              </span>
-            </div>
+          <Card className="bg-card/75 backdrop-blur-sm">
+            <CardHeader className="pb-2">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest">
+                  Time of Night
+                </CardTitle>
+                <span className="text-lg font-black text-white tabular-nums">
+                  {hourLabel(hour)}
+                </span>
+              </div>
+            </CardHeader>
+            <CardContent>
             <input
               type="range"
               min={20}
@@ -230,7 +250,8 @@ export default function SafetyMap() {
               <span>11 PM</span>
               <span>12 AM</span>
             </div>
-          </div>
+            </CardContent>
+          </Card>
 
           {/* Stats */}
           <div className="flex gap-2">
@@ -250,13 +271,20 @@ export default function SafetyMap() {
             />
           )}
 
+          {/* Feedback */}
+          {selectedStreet && <FeedbackWidget street={selectedStreet} />}
+
           {/* Route search */}
-          <div className="glass-card rounded-xl p-4">
-            <h3 className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-3">
-              Route Finder
-            </h3>
-            <RouteSearch onSearch={handleRouteSearch} hour={hour} />
-          </div>
+          <Card className="bg-card/75 backdrop-blur-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest">
+                Route Finder
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <RouteSearch onSearch={handleRouteSearch} hour={hour} />
+            </CardContent>
+          </Card>
 
           {/* Route error */}
           {routeError && (
@@ -265,21 +293,52 @@ export default function SafetyMap() {
             </p>
           )}
 
+          {/* Anomaly Detection */}
+          <AnomalyPanel hour={hour} />
+
+          {/* Predictions */}
+          <PredictionPanel hour={hour} />
+
+          {/* Simulation Controls */}
+          <SimulationControls />
+
+          {/* Geo-cluster toggle */}
+          <Card className="bg-card/75 backdrop-blur-sm">
+            <CardContent className="py-3 flex items-center justify-between">
+              <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest">
+                Geo-Clusters
+              </span>
+              <Button
+                variant={showClusters ? "default" : "outline"}
+                size="sm"
+                className="h-7 text-[11px] font-bold rounded-full"
+                onClick={() => setShowClusters(!showClusters)}
+              >
+                {showClusters ? "ON" : "OFF"}
+              </Button>
+            </CardContent>
+          </Card>
+
           {/* Route result */}
           {route && (
-            <div className="glass-card rounded-xl p-4 border-indigo-500/30 animate-slide-up">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-[11px] font-semibold text-indigo-300 uppercase tracking-widest">
-                  Safest Route
-                </h3>
-                <button
-                  onClick={() => setRoute(null)}
-                  className="text-gray-500 hover:text-gray-300 text-xs transition-colors"
-                >
-                  Clear
-                </button>
-              </div>
-              <p className="text-white text-sm mb-2">
+            <Card className="bg-card/75 backdrop-blur-sm border-indigo-500/30 animate-slide-up">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-[11px] font-semibold text-indigo-300 uppercase tracking-widest">
+                    Safest Route
+                  </CardTitle>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground"
+                    onClick={() => setRoute(null)}
+                  >
+                    Clear
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-white text-sm mb-2">
                 <span className="font-semibold">{route.total_streets}</span>{" "}
                 streets &nbsp;·&nbsp; Avg:{" "}
                 <span
@@ -310,7 +369,8 @@ export default function SafetyMap() {
                   </span>
                 ))}
               </div>
-            </div>
+              </CardContent>
+            </Card>
           )}
         </div>
 
@@ -355,6 +415,31 @@ export default function SafetyMap() {
             />
 
             <FitBounds coords={allCoords} />
+
+            {/* Geo-Cluster circles */}
+            {showClusters &&
+              geoClusters.map((c, i) => (
+                <Circle
+                  key={`cluster-${i}`}
+                  center={[c.center_lat, c.center_lng]}
+                  radius={500}
+                  pathOptions={{
+                    color: c.avg_safety < 40 ? "#ef4444" : c.avg_safety < 70 ? "#eab308" : "#22c55e",
+                    fillColor: c.avg_safety < 40 ? "#ef4444" : c.avg_safety < 70 ? "#eab308" : "#22c55e",
+                    fillOpacity: 0.08,
+                    weight: 1,
+                    dashArray: "4 4",
+                  }}
+                >
+                  <Tooltip className="safety-tooltip">
+                    <div className="text-xs">
+                      <p className="font-bold">Cluster #{i + 1}</p>
+                      <p>Avg Safety: {typeof c.avg_safety === "number" ? c.avg_safety.toFixed(1) : c.avg_safety}</p>
+                      <p>{c.street_count ?? c.streets?.length ?? "?"} streets</p>
+                    </div>
+                  </Tooltip>
+                </Circle>
+              ))}
 
             {/* Route polyline */}
             {routeCoords.length > 1 && (

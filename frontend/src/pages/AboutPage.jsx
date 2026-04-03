@@ -1,3 +1,5 @@
+import { Card as ShadCard, CardHeader, CardTitle, CardContent } from "../components/ui/card";
+
 export default function AboutPage() {
   return (
     <div className="flex-1 overflow-y-auto">
@@ -52,9 +54,11 @@ export default function AboutPage() {
 
 function Card({ title, children }) {
   return (
-    <div className="glass-card rounded-xl p-5 animate-slide-up">
-      <h2 className="text-lg font-bold text-white mb-3">{title}</h2>
-      {children}
-    </div>
+    <ShadCard className="bg-card/75 backdrop-blur-sm animate-slide-up">
+      <CardHeader>
+        <CardTitle className="text-lg font-bold text-white">{title}</CardTitle>
+      </CardHeader>
+      <CardContent>{children}</CardContent>
+    </ShadCard>
   );
 }

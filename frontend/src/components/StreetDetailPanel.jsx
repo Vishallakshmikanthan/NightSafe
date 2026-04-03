@@ -1,3 +1,6 @@
+import { Card, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
+
 function scoreToColor(score) {
   if (score >= 70) return "#22c55e";
   if (score >= 40) return "#eab308";
@@ -56,23 +59,26 @@ export default function StreetDetailPanel({ street, onClose }) {
   const factors = riskFactors(street);
 
   return (
-    <div className="glass-card rounded-xl p-4 animate-slide-up">
-      {/* Header */}
-      <div className="flex items-start justify-between gap-2 mb-3">
-        <div className="min-w-0">
-          <h3 className="text-sm font-bold text-white truncate">
-            {street.street_name}
-          </h3>
-          <p className="text-xs text-gray-500 mt-0.5">{street.street_id}</p>
+    <Card className="bg-card/75 backdrop-blur-sm animate-slide-up">
+      <CardContent className="pt-4">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-2 mb-3">
+          <div className="min-w-0">
+            <h3 className="text-sm font-bold text-white truncate">
+              {street.street_name}
+            </h3>
+            <p className="text-xs text-gray-500 mt-0.5">{street.street_id}</p>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-6 w-6 text-muted-foreground hover:text-foreground shrink-0"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            ✕
+          </Button>
         </div>
-        <button
-          onClick={onClose}
-          className="text-gray-500 hover:text-gray-300 transition-colors text-sm shrink-0"
-          aria-label="Close"
-        >
-          ✕
-        </button>
-      </div>
 
       {/* Score display */}
       <div className="flex items-center gap-3 mb-4">
@@ -163,6 +169,7 @@ export default function StreetDetailPanel({ street, onClose }) {
           </div>
         </div>
       )}
-    </div>
+      </CardContent>
+    </Card>
   );
 }

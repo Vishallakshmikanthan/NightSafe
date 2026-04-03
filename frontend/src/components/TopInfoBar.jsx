@@ -1,3 +1,5 @@
+import { Card, CardContent } from "./ui/card";
+
 function hourLabel(h) {
   if (h === 0) return "12:00 AM";
   if (h === 12) return "12:00 PM";
@@ -6,7 +8,8 @@ function hourLabel(h) {
 
 export default function TopInfoBar({ hour, dangerCount, totalStreets, loading }) {
   return (
-    <div className="glass-card rounded-xl px-5 py-3 flex items-center justify-between gap-4 animate-fade-in shrink-0">
+    <Card className="bg-card/75 backdrop-blur-sm animate-fade-in shrink-0">
+      <CardContent className="px-5 py-3 flex items-center justify-between gap-4">
       {/* Live indicator + time */}
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2">
@@ -52,6 +55,7 @@ export default function TopInfoBar({ hour, dangerCount, totalStreets, loading })
           streets
         </span>
       </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

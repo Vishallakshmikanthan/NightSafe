@@ -34,6 +34,8 @@ class StreetRecord(BaseModel):
     safety_score: float
     zone: str
     explanation: List[str] = []
+    lat: Optional[float] = None
+    lng: Optional[float] = None
 
 
 class SafetyScoreResponse(BaseModel):
@@ -43,6 +45,8 @@ class SafetyScoreResponse(BaseModel):
     safety_score: float
     zone: str
     explanation: List[str] = []
+    lat: Optional[float] = None
+    lng: Optional[float] = None
 
 
 class DangerZoneResponse(BaseModel):
@@ -52,6 +56,8 @@ class DangerZoneResponse(BaseModel):
     safety_score: float
     zone: str
     explanation: List[str] = []
+    lat: Optional[float] = None
+    lng: Optional[float] = None
 
 
 class TransitionAlertResponse(BaseModel):
@@ -71,6 +77,8 @@ class AlertResponse(BaseModel):
     zone: str
     explanation: List[str] = []
     message: str
+    lat: Optional[float] = None
+    lng: Optional[float] = None
 
 
 # ── Safe-route response models ─────────────────────────────────────

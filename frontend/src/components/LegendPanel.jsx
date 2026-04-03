@@ -1,3 +1,5 @@
+import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
+
 const ZONES = [
   {
     color: "#22c55e",
@@ -27,11 +29,14 @@ const ZONES = [
 
 export default function LegendPanel() {
   return (
-    <div className="glass-card rounded-xl p-4 animate-fade-in">
-      <h3 className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-3">
-        Safety Zones
-      </h3>
-      <div className="space-y-2">
+    <Card className="bg-card/75 backdrop-blur-sm animate-fade-in">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest">
+          Safety Zones
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-2">
         {ZONES.map((z) => (
           <div
             key={z.label}
@@ -53,7 +58,8 @@ export default function LegendPanel() {
             </span>
           </div>
         ))}
-      </div>
-    </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

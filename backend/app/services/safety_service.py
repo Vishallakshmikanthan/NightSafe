@@ -31,7 +31,15 @@ def _load_scored_data() -> List[Dict[str, Any]]:
     """Load and score the Chennai street CSV (cached)."""
     global _scored_data
     if _scored_data is None:
-        _scored_data = score_chennai_csv()
+        from app.services.routing_service import STREET_COORDS
+        raw_data = score_chennai_csv()
+        for row in raw_data:
+            sid = row.get("street_id")
+            if sid in STREET_COORDS:
+                row["lat"], row["lng"] = STREET_COORDS[sid]
+            else:
+                row["lat"], row["lng"] = 13.0827, 80.2707  # fallback to chennai center
+        _scored_data = raw_data
     return _scored_data
 
 
